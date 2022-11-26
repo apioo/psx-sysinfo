@@ -53,8 +53,8 @@ class Linux implements EnvironmentInterface
             return 0;
         }
 
-        $total = $parts[1] / 1000000;
-        $used  = $parts[2] / 1000000;
+        $total = ((int) $parts[1]) / 1000000;
+        $used  = ((int) $parts[2]) / 1000000;
 
         return round(($used / $total) * 100, 2);
     }

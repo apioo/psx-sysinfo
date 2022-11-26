@@ -31,11 +31,11 @@ use PSX\SysInfo\EnvironmentInterface;
  */
 class Windows implements EnvironmentInterface
 {
-    private \COM $wmi;
+    private \com $wmi;
 
     public function __construct()
     {
-        $this->wmi = new \COM('WinMgmts:\\\\.');
+        $this->wmi = new \com('WinMgmts:\\\\.');
     }
 
     public function getCpuUsage(): float
