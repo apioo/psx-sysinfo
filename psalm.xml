@@ -13,11 +13,4 @@
         </ignoreFiles>
         <file name="tests/com_stub.php" />
     </projectFiles>
-    <issueHandlers>
-        <ForbiddenCode>
-            <errorLevel type="suppress">
-                <file name="src/Driver/Linux.php" />
-            </errorLevel>
-        </ForbiddenCode>
-    </issueHandlers>
 </psalm>
