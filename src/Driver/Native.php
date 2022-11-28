@@ -23,18 +23,18 @@ namespace PSX\SysInfo\Driver;
 use PSX\SysInfo\EnvironmentInterface;
 
 /**
- * Linux
+ * Native
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
  */
-class Linux implements EnvironmentInterface
+class Native implements EnvironmentInterface
 {
     public function getCpuUsage(): float
     {
         $load = sys_getloadavg();
-        $usage = $load[0] ?? null;
+        $usage = $load[1] ?? null;
 
         if (!is_float($usage)) {
             return 0;
@@ -45,17 +45,6 @@ class Linux implements EnvironmentInterface
 
     public function getMemoryUsage(): float
     {
-        $return = trim((string) shell_exec('free -k'));
-        $lines = explode("\n", $return);
-        $parts = array_values(array_filter(explode(' ', $lines[1])));
-
-        if (!isset($parts[1]) || !isset($parts[2])) {
-            return 0;
-        }
-
-        $total = ((int) $parts[1]) / 1000000;
-        $used  = ((int) $parts[2]) / 1000000;
-
-        return round(($used / $total) * 100, 2);
+        return memory_get_peak_usage() / 1_000_000_000;
     }
 }

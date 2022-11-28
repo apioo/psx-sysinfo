@@ -18,45 +18,26 @@
  * limitations under the License.
  */
 
-namespace PSX\SysInfo;
+namespace PSX\SysInfo\Driver;
+
+use PSX\SysInfo\EnvironmentInterface;
 
 /**
- * Environment
+ * Noop
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
  */
-class Environment implements EnvironmentInterface
+class Noop implements EnvironmentInterface
 {
-    private EnvironmentInterface $driver;
-
-    public function __construct(EnvironmentInterface $driver)
-    {
-        $this->driver = $driver;
-    }
-
     public function getCpuUsage(): float
     {
-        return $this->driver->getCpuUsage();
+        return 0;
     }
 
     public function getMemoryUsage(): float
     {
-        return $this->driver->getMemoryUsage();
-    }
-
-    public static function create(): self
-    {
-        return new self(self::detectDriver());
-    }
-
-    private static function detectDriver(): EnvironmentInterface
-    {
-        if (\DIRECTORY_SEPARATOR === '\\'  && class_exists(\com::class)) {
-            return new Driver\WindowsCOM();
-        }
-
-        return new Driver\Native();
+        return 0;
     }
 }
